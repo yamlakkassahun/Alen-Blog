@@ -11,7 +11,7 @@ import { AdminRouter } from './routes/AdminRoute';
 mongoose.set('strictQuery', false);
 
 mongoose
-  .connect( "mongodb://localhost:27017/Alen_Blog")
+  .connect("mongodb://localhost:27017/Alen_Blog")
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -32,4 +32,4 @@ app.use('/blog', BlogRouter)
 app.use('/admin', AdminRouter)
 app.use(errorMiddleware);
 
-app.listen(4000, () => console.log(`Example app listening on http://localhost:4000`))
+app.listen(4000, () => console.log(`Server is listening on http://localhost:4000`))
