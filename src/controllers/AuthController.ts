@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/User';
-import { GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } from '../utility';
-import HttpException from '../exceptions/HttpException';
 import { Role } from '../models/Role.enum';
 import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
@@ -51,7 +49,7 @@ export const SignupBlogger = async (req: Request, res: Response, next: NextFunct
 
     res.status(200).json({
         success: true,
-        message: 'Activate Successfully Registered',
+        message: 'Account Successfully Registered',
         data: user
     });
 }
@@ -101,13 +99,11 @@ export const SignupUser = async (req: Request, res: Response, next: NextFunction
 
     res.status(200).json({
         success: true,
-        message: 'Activate Successfully Registered',
+        message: 'Account Successfully Registered',
         data: user
     });
 }
 
-
-//to log in the admin
 export const Login = async (req: Request, res: Response, next: NextFunction) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -121,7 +117,10 @@ export const Login = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     const user = await User.findOne({ email });
-    console.log(user);
+
+    if (user.status === 'InActive') {
+        return res.status(400).json({ error: 'You are not Authorized' });
+    }
 
     if (!user || !user.password) {
         return res

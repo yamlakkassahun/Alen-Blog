@@ -8,9 +8,9 @@ const router = express.Router();
 router.get('/my', auth, role.checkRole(Role.Blogger), myBlogs);
 router.get('/list', auth, getAllBlogs);
 router.get('/:id', auth, getBlog);
-router.post('/', auth, role.checkRole(Role.Blogger), createBlog);
-router.put('/:id', auth, role.checkRole(Role.Blogger), updateBlog);
-router.delete('/:id', auth, role.checkRole(Role.Blogger), deleteBlog);
+router.post('/create', auth, role.checkRole(Role.Blogger), createBlog);
+router.put('/:id/edit', auth, role.checkRole(Role.Blogger), updateBlog);
+router.delete('/:id', auth, role.checkRole(Role.Admin , Role.Blogger), deleteBlog);
 
 
 export { router as BlogRouter };

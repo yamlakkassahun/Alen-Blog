@@ -40,6 +40,7 @@ export const myBookmarks = async (req: Request, res: Response, next: NextFunctio
         const user = await User.findOne({ _id: userId }).populate('bookmarks');
         const bookmarks = user.bookmarks;
         res.status(200).json({ bookmarks });
+
     } catch (error) {
         return res.status(400).json({
             error: 'User not found'
